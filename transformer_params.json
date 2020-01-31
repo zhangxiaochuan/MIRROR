@@ -1,0 +1,9 @@
+{
+  "learning_rate": 3e-5,
+  "weight_decay": 0.01,
+  "clip_grad": 2,
+  "batch_size": 48,
+  "epoch_num": 20,
+  "multi_gpu": true,
+  "seed": 2019
+}
