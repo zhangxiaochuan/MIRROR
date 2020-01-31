@@ -68,3 +68,9 @@ $ python pretrain.py
 ```
 $ python pretrain.py
 ```
+
+### Contact
+[Xiaochuan Zhang](mailto:zhangxiaochuan@outlook.com)
+
+### License
+See [MIT License](https://github.com/baowenbo/DAIN/blob/master/LICENSE)
