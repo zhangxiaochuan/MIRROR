@@ -66,7 +66,7 @@ $ python pretrain.py
 ### train
 
 ```
-$ python pretrain.py
+$ python train.py
 ```
 
 ### Contact
