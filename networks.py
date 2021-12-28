@@ -99,7 +99,7 @@ class Encoder(nn.Module):
 
         if return_attns:
             return enc_output, enc_slf_attn_list
-        return enc_output
+        return enc_output,
 
 
 class Decoder(nn.Module):

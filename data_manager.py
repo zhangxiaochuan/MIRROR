@@ -40,7 +40,7 @@ def deepcopy(data):
 class Dataset(object):
     """manage the dataset"""
 
-    def __init__(self, dataset_dir='../MISA', x86_source_dir='source/x86/', arm_source_dir='source/arm/',
+    def __init__(self, dataset_dir='./MISA', x86_source_dir='source/x86/', arm_source_dir='source/arm/',
                  x86_vocab_path='x86_vocab.txt', arm_vocab_path='arm_vocab.txt',
                  x86_train_path='basic_blocks/x86_train.txt', arm_train_path='basic_blocks/arm_train.txt',
                  data_path='basic_blocks/data.pkl'):
@@ -55,7 +55,7 @@ class Dataset(object):
         :param arm_train_path: the file path stores ARM basic blocks
         :param data_path: the output pkl file
         """
-        self.dataset_dir = os.path.abspath(os.path.join(os.path.realpath(__file__), '../../', dataset_dir))
+        self.dataset_dir = dataset_dir
         self.x86_source_dir = os.path.join(self.dataset_dir, x86_source_dir)
         self.arm_source_dir = os.path.join(self.dataset_dir, arm_source_dir)
         self.x86_vocab_path = os.path.join(self.dataset_dir, x86_vocab_path)
@@ -193,9 +193,9 @@ class Dataset(object):
                 instruction = line.strip()
                 if not instruction[0] in ["#", "@"]:
                     # remove the annotations
-                    if arch is 'x86':
+                    if arch == 'x86':
                         blocks[label].append(re.sub(r"#.+", "", instruction))
-                    elif arch is 'arm':
+                    elif arch == 'arm':
                         blocks[label].append(re.sub(r"@.+", "", instruction))
 
         failed_count = 0
@@ -241,7 +241,7 @@ class Dataset(object):
                     match = re.findall(reg, bb_str)[0][1]
                 except BaseException:
                     pass
-                if len(match) is not 0:
+                if len(match) != 0:
                     pass
                 bb_str = re.sub(reg, match, bb_str)
                 bb = bb_str.split(";")
@@ -268,8 +268,8 @@ class Dataset(object):
         x86_vocab = reserved_vocab + x86_tokens
         arm_vocab = reserved_vocab + arm_tokens
 
-        assert x86_vocab[0] is "padding", "「padding」 index should be 0 in x86 vocab"
-        assert arm_vocab[0] is "padding", "「padding」 index should be 0 in arm vocab"
+        assert x86_vocab[0] == "padding", "「padding」 index should be 0 in x86 vocab"
+        assert arm_vocab[0] == "padding", "「padding」 index should be 0 in arm vocab"
 
         with open(self.arm_vocab_path, "w") as f_arm:
             f_arm.write("\n".join(arm_vocab))
