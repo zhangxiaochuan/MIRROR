@@ -181,8 +181,8 @@ class Measurer(nn.Module):
         self.target_encoder.embedding.weight = Parameter(weight)
 
     def forward(self, source_seq, source_pos, target_seq, target_pos, negative_seq=None, negative_pos=None, negative_encoder=None):
-        source_encode = self.source_encoder(source_seq, source_pos)
-        target_encode = self.target_encoder(target_seq, target_pos)
+        source_encode, = self.source_encoder(source_seq, source_pos)
+        target_encode, = self.target_encoder(target_seq, target_pos)
         if negative_seq is None and negative_pos is None and negative_encoder is None:
             source_encode = source_encode.sum(1)
             target_encode = target_encode.sum(1)
@@ -200,8 +200,8 @@ class Measurer(nn.Module):
             target_negative_seq = negative_seq.mul(source_encoder_mask.long())
             target_negative_pos = negative_pos.mul(source_encoder_mask.long())
 
-            source_negative_encode = self.source_encoder(source_negative_seq, source_negative_pos, encoding_mask=source_encoder_mask)
-            target_negative_encode = self.target_encoder(target_negative_seq, target_negative_pos, encoding_mask=target_encoder_mask)
+            source_negative_encode, = self.source_encoder(source_negative_seq, source_negative_pos, encoding_mask=source_encoder_mask)
+            target_negative_encode, = self.target_encoder(target_negative_seq, target_negative_pos, encoding_mask=target_encoder_mask)
             source_encode = source_encode.sum(1)
             target_encode = target_encode.sum(1)
 
